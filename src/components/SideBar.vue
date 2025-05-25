@@ -7,6 +7,13 @@ const sections = [
     {id: 'search', label: 'Search & Filter', icon: 'search'},
     {id: 'about', label: 'About', icon: 'info-circle'}
 ]
+
+defineProps({
+    total_population: Number,
+    number_citites: Number,
+    number_regions: Number,
+    unique_names_count: Number
+})
 const activeSection = ref('map');
 
 const changeActive = (active) => {
@@ -37,10 +44,10 @@ const changeActive = (active) => {
           <div class="bg-white rounded-xl shadow-sm p-6">
             <h3 class="font-display font-semibold text-lg mb-4 text-gray-900">Dataset Stats</h3>
             <div class="space-y-4">
-                <DataStatItem title="Total Records" content="100,000"/>
-                <DataStatItem title="Unique Names" content="12,458"/>
-                <DataStatItem title="Regions" content="11"/>
-                <DataStatItem title="Cities" content="85"/>
+                <DataStatItem title="Total Records" :content="`${total_population}`"/>
+                <DataStatItem title="Unique Names" :content="`${unique_names_count}`"/>
+                <DataStatItem title="Regions" :content="`${number_regions}`"/>
+                <DataStatItem title="Cities" :content="`${number_citites}`"/>
             </div>
           </div>
         </div>
