@@ -4,22 +4,24 @@ import TopNamesMap from './Subcomponents/TopNamesMap.vue';
 import SectionTitle from './Subcomponents/SectionTitle.vue';
 import SectionSubtitle from './Subcomponents/SectionSubtitle.vue';
 import regionData from '../assets/ethiopia-region.json';
-import { getRegionsFrequency } from '../services/api';
+import { getRegionsFrequency, getTopCityNames } from '../services/api';
+import region_cities from '../assets/region_cities.json';
 
 const regions = ref(regionData);
 const result = ref([]);
 const selectedRegion = ref('Addis Ababa');
 const selectedRegionPop = ref(0);
+const topCityNames = ref([]);
 
 const transform = ref({ x: 0, y: 0, scale: 1 });
 const isPanning = ref(false);
 const start = ref({ x: 0, y: 0 });
 
-const top_names = [
+const top_names = ref([
     {name: 'Abebe', pop_number: 1245, color_number: 600},
     {name: 'Tadesse', pop_number: 982, color_number: 500},
     {name: 'Getachew', pop_number: 876, color_number: 400}
-]
+])
 
 const startPan = (event) => {
     isPanning.value = true;
@@ -46,13 +48,32 @@ const zoom = (event) => {
 const selectRegion = (region) => {
     selectedRegion.value = region
     selectedRegionPop.value = result.value[selectedRegion.value] || 0;
+    fetchTopCityNames();
 }
+
+const fetchTopCityNames = async () => {
+    const cities = region_cities[selectedRegion.value] || [];
+    for (let city of cities) {
+        let top_names = await getTopCityNames(city);
+        topCityNames.value = [];
+        for (let top_name of top_names) {
+            topCityNames.value.push({
+                name: top_name.name,
+                pop_number: top_name.count || 0
+            });
+        }
+    }
+    console.log(`Top names for ${selectedRegion.value}:`, topCityNames);
+};
 
 onMounted(async () => {
     // Initialize the map or any other setup if needed
     result.value = await getRegionsFrequency();
+    // for (let region in result.value) {
+    // regions_color.value.set(region[])
+    // }
     selectedRegionPop.value = result.value[selectedRegion.value] || 0;
-
+    await fetchTopCityNames();
 });
 
 </script>
@@ -71,11 +92,13 @@ onMounted(async () => {
                         <!-- SVG Map of Ethiopia -->
                         <svg viewBox="0 0 600 600" class="w-full h-full" @mousedown="startPan" @mousemove="pan" @mouseup="endPan" @wheel="zoom">
                             <g :transform="`translate(${transform.x}, ${transform.y}) scale(${transform.scale})`">
-                                <g v-for="region in regions" :key="region.name">
+                                <g v-for="region in regions" :key="region.name" >
                                     <path
                                         @click="selectRegion(region.name)"
                                         :d="region.path"
                                         :class="[
+                                        // regions_color.get(region.name) || 'fill-primary-200',
+                                        // region.color,
                                         `fill-primary-${region.color}`,
                                         `hover: fill-primary-${region.hover_color}`,
                                         selectedRegion === region.name ? 'stroke-primary-800' : 'stroke-primary-300',
@@ -102,16 +125,16 @@ onMounted(async () => {
                         <div class="space-y-4">
                             <div class="flex justify-between items-center">
                                 <span class="text-gray-600">Population in dataset:</span>
-                                <span class="font-semibold">{{selectedRegionPop}}</span>
+                                <span class="font-semibold">{{selectedRegionPop.toLocaleString()}}</span>
                             </div>
                             <div>
                                 <h4 class="text-sm font-semibold text-gray-700 mb-2">Top 3 Given Names:</h4>
-                                <div v-for="(top, index) in top_names" :key="index">
+                                <div v-for="(top, index) in topCityNames" :key="index">
                                     <TopNamesMap 
-                                        :color_number="top.color_number"
+                                        :color_number="200"
                                         :count_number="`${index+1}`"
                                         :person_name="top.name"
-                                        :pop_number="top.pop_number"
+                                        :pop_number="top.pop_number.toLocaleString()"
                                     />
                                 </div>
                             </div>
