@@ -55,7 +55,9 @@ const getCoords = (city) => {
         />
         <main class="flex-1">
           <MapExplore />
-          <Charts />
+          <Charts 
+            :total_population="total_population"
+          />
           <SearchSection />
           <About />
         </main>

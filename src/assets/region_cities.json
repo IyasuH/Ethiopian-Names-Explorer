@@ -1,0 +1,35 @@
+{
+    "Tigray": [
+        "Mekele"
+    ],
+    "Afar": [
+        "Semera"
+    ],
+    "Amhara": [
+        "Bahir Dar",
+        "Dese"
+    ],
+    "Oromia": [
+        "Adama",
+        "Jimma"
+    ],
+    "Somali": [
+        "Jijiga"
+    ],
+    "SNNPR": [
+        "Hawassa",
+        "Hossana"
+    ],
+    "Benishangul-Gumuz": [
+        "Asosa"
+    ],
+    "Gambela": [
+        "Gambela"
+    ],
+    "Dire Dawa": [
+        "Dire Dawa"
+    ],
+    "Addis Ababa": [
+        "Addis Ababa"
+    ]
+}

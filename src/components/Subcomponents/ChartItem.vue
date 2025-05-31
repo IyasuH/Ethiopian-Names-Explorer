@@ -2,7 +2,7 @@
 
 defineProps({
     name: String,
-    amount: Number,
+    count: Number,
     percent: Number
 })
 </script>
@@ -14,7 +14,7 @@ defineProps({
         <div class="flex-1">
         <div class="h-6 bg-secondary-500 rounded-r-full" :style="`width: ${percent}%`"></div>
         </div>
-        <div class="w-16 text-left pl-4 text-sm font-medium">{{ amount }}</div>
+        <div class="w-16 text-left pl-4 text-sm font-medium">{{ count }}</div>
     </div>
 
 </template>

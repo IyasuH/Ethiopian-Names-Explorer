@@ -11,7 +11,7 @@ defineProps({
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">Explore Ethiopian Names</h2>
         <p class="text-lg text-primary-100 mb-8">
-          Discover patterns, trends, and insights from our dataset of {{ total_population }} Ethiopian names
+          Discover patterns, trends, and insights from our dataset of {{ total_population.toLocaleString() }} Ethiopian names
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a href="#map" class="bg-white text-primary-700 hover:bg-primary-50 px-6 py-3 rounded-lg font-medium transition-colors">

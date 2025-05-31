@@ -44,8 +44,8 @@ const changeActive = (active) => {
           <div class="bg-white rounded-xl shadow-sm p-6">
             <h3 class="font-display font-semibold text-lg mb-4 text-gray-900">Dataset Stats</h3>
             <div class="space-y-4">
-                <DataStatItem title="Total Records" :content="`${total_population}`"/>
-                <DataStatItem title="Unique Names" :content="`${unique_names_count}`"/>
+                <DataStatItem title="Total Records" :content="`${total_population.toLocaleString()}`"/>
+                <DataStatItem title="Unique Names" :content="`${unique_names_count.toLocaleString()}`"/>
                 <DataStatItem title="Regions" :content="`${number_regions}`"/>
                 <DataStatItem title="Cities" :content="`${number_citites}`"/>
             </div>
