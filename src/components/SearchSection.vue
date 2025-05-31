@@ -2,12 +2,18 @@
 import SectionTitle from './Subcomponents/SectionTitle.vue';
 import SectionSubtitle from './Subcomponents/SectionSubtitle.vue';
 import SearchButton from './Subcomponents/SearchButton.vue';
+import { ref } from 'vue';
+import { searchName } from '../services/api';
+
 const name_filters = [
-    {label: "Any name type", value: "all"},
     {label: "Given name", value: "name"},
     {label: "Father's name", value: "father_name"},
     {label: "Grandfather's name", value: "grand_father_name"}
 ]
+
+const selected_Name_Type = ref('name');
+const selected_City = ref('');
+const search_Name = ref('');
 
 const city_filters = [
     {label: "All cities", value: ""},
@@ -17,16 +23,27 @@ const city_filters = [
     {label: "Gondars", value: "gondar"},
     {label: "Bahir Dar", value: "bahir-dar"}
 ]
-const search_sample = [
-    {name: "Abebe", father_name: "Tadesse", grand_father_name: "Wolde", city: "Addis Ababa"},
-    {name: "Kidus", father_name: "Bekele", grand_father_name: "Gebre", city: "Dire Dawa"},
-    {name: "Tigist", father_name: "Haile", grand_father_name: "Tekle", city: "Gondar"},
-    {name: "Dawit", father_name: "Tesfaye", grand_father_name: "Mengistu", city: "Bahir Dar"},
-    {name: "Hiwot", father_name: "Kebede", grand_father_name: "Assefa", city: "Mekelle"}
-]
+const search_sample = ref([
+    {name: "Abebe", count: 100, location: "Addis Ababa"},
+    {name: "Kidus", count: 100, location: "Dire Dawa"},
+    {name: "Tigist", count: 100,  location: "Gondar"},
+    {name: "Dawit", count: 100, location: "Bahir Dar"},
+    {name: "Hiwot", count: 100,  location: "Mekelle"}
+])
 
-const SearchFunc = () => {
-    console.log(`Search button is clicked.`)
+const SearchFunc = async () => {
+    console.log(`selected_Name_Type ${selected_Name_Type.value}`)
+    console.log(`selected_City ${selected_City.value}`)
+    console.log(`searchName ${search_Name.value}`)
+    const city_value = selected_City.value.trim();
+    const name_type_value = selected_Name_Type.value.trim();
+    const name_value = search_Name.value.trim().toUpperCase();
+    if (name_type_value === "name") {
+        search_sample.value = await searchName(name_value);
+        console.log(`Search button is clicked. ${search_sample.value}`);
+    }
+    // let search_names_data = await getTopCityNames(city);
+    // console.log(`Search button is clicked. ${search_names_data}`)
 }
 </script>
 
@@ -47,25 +64,21 @@ const SearchFunc = () => {
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="pi pi-search h-5 w-5 text-gray-400"> </i>
                                 </div>
-                                <input type="text" id="search" placeholder="Enter a name to search..." class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-accent-500 focus:border-accent-500 sm:text-sm h-10 border px-3 py-2">
+                                <input v-model="search_Name" type="text" id="search" placeholder="Enter a name to search..." class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-accent-500 focus:border-accent-500 sm:text-sm h-10 border px-3 py-2">
                             </div>
                         </div>
                         
                         <div>
                             <label for="name-type" class="block text-sm font-medium text-gray-700 mb-1">Name Type</label>
-                            <select id="name-type" class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-accent-500 focus:border-accent-500 sm:text-sm h-10 border px-3 py-2">
-                                <div v-for="name in name_filters">
-                                    <option :value="name.value">{{ name.label }}</option>
-                                </div>
+                            <select v-model="selected_Name_Type" id="name-type" class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-accent-500 focus:border-accent-500 sm:text-sm h-10 border px-3 py-2">
+                                <option v-for="name in name_filters" :value="name.value" :key="name.value">{{ name.label }}</option>
                             </select>
                         </div>
                         
                         <div>
                             <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                            <select id="city" class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-accent-500 focus:border-accent-500 sm:text-sm h-10 border px-3 py-2">
-                                <div v-for="city in city_filters">
-                                    <option :value="city.value">{{ city.label }}</option>
-                                </div>
+                            <select v-model="selected_City" id="city" class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-accent-500 focus:border-accent-500 sm:text-sm h-10 border px-3 py-2">
+                                <option v-for="city in city_filters" :value="city.value" :key="city.value">{{ city.label }}</option>
                             </select>
                         </div>
                     </div>
@@ -77,18 +90,16 @@ const SearchFunc = () => {
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Given Name</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Father's Name</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grandfather's Name</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Frequency</th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">City</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     <tr v-for="search_data in search_sample ">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ search_data.name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ search_data.father_name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ search_data.grand_father_name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ search_data.city }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ search_data.count.toLocaleString() }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ search_data.location }}</td>
                                     </tr>
                                 </tbody>
                             </table>
