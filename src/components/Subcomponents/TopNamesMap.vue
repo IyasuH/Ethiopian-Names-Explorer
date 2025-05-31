@@ -4,7 +4,7 @@ defineProps({
     color_number: Number,
     count_number: String,
     person_name: String,
-    pop_number: Number
+    pop_number: String
 })
 
 </script>

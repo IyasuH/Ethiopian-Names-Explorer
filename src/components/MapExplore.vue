@@ -53,15 +53,16 @@ const selectRegion = (region) => {
 
 const fetchTopCityNames = async () => {
     const cities = region_cities[selectedRegion.value] || [];
+    topCityNames.value = [];
     for (let city of cities) {
         let top_names = await getTopCityNames(city);
-        topCityNames.value = [];
         for (let top_name of top_names) {
             topCityNames.value.push({
                 name: top_name.name,
                 pop_number: top_name.count || 0
             });
         }
+        topCityNames.value.sort((a, b) => b.pop_number - a.pop_number);
     }
     console.log(`Top names for ${selectedRegion.value}:`, topCityNames);
 };
@@ -128,7 +129,7 @@ onMounted(async () => {
                                 <span class="font-semibold">{{selectedRegionPop.toLocaleString()}}</span>
                             </div>
                             <div>
-                                <h4 class="text-sm font-semibold text-gray-700 mb-2">Top 3 Given Names:</h4>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-2">Top {{ topCityNames.length }} Given Names:</h4>
                                 <div v-for="(top, index) in topCityNames" :key="index">
                                     <TopNamesMap 
                                         :color_number="200"

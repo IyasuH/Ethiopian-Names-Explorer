@@ -2,7 +2,7 @@
 
 defineProps({
     name: String,
-    count: Number,
+    count: String,
     percent: Number
 })
 </script>

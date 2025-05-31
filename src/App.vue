@@ -12,7 +12,7 @@ import { getCityFrequency, countUniqueNames } from './services/api';
 import { onMounted, ref } from 'vue';
 
 const city_freq = ref([]);
-const total_population = ref(100000);
+const total_population = ref(0);
 const number_citites = ref(0);
 const number_regions = ref(11)
 const unique_names_count = ref(0);
