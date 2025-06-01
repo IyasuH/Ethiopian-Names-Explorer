@@ -13,16 +13,19 @@ defineProps({
 const activeChart = ref("Given Names")
 
 const name_types = ["Given Names", "Father's Names", "Grandfather's Names"]
+const selected_name_type = ref("Given Name")
 const chart_items = ref([])
 const given_names_chart = ref([])
 const father_names_chart = ref([])
 const grand_names_chart = ref([])
+const out_of_percentage = ref([])
 
 onMounted(async () => {
     given_names_chart.value = await getTopNames()
     father_names_chart.value = await getTopFNames()
     grand_names_chart.value = await getTopGFNames()
     chart_items.value = given_names_chart.value // default to Given Names
+    out_of_percentage.value = chart_items.value[0].count + 500;
     console.log(`father_names_chart.value: ${given_names_chart.value[0].count}`)
 })
 
@@ -33,10 +36,16 @@ const changeActiveChart = (chartName) => {
     activeChart.value = chartName;
     if (chartName === "Given Names"){
         chart_items.value = given_names_chart.value
+        out_of_percentage.value = chart_items.value[0].count + 500;
+        selected_name_type.value = "Given Name";
     } else if (chartName === "Father's Names") {
         chart_items.value = father_names_chart.value
+        out_of_percentage.value = chart_items.value[0].count + 500;
+        selected_name_type.value = "Father's Name";
     } else if (chartName === "Grandfather's Names") {
         chart_items.value = grand_names_chart.value
+        out_of_percentage.value = chart_items.value[0].count + 500;
+        selected_name_type.value = "Grandfather's Name";
     }
 }
 
@@ -73,10 +82,6 @@ const changeActiveChart = (chartName) => {
                 <div class="h-full flex flex-col">
                     <div class="flex items-center justify-between mb-4">
                         <h4 class="font-medium text-gray-900">Top 10 Given Names</h4>
-                        <div class="flex items-center text-sm text-gray-500">
-                            <span class="w-3 h-3 bg-secondary-500 rounded-full mr-1"></span>
-                            <span>Frequency</span>
-                        </div>
                     </div>
                     
                     <div class="flex-1 flex flex-col justify-between">
@@ -84,7 +89,7 @@ const changeActiveChart = (chartName) => {
                             <ChartItem 
                                 :name="item.name"
                                 :count="item.count.toLocaleString()"
-                                :percent="(item.count/total_population) * 7300"
+                                :percent="(item.count/out_of_percentage) * 100"
                             />
                         </div>
                     </div>
