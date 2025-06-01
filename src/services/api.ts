@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://ethiopian-names-explorer-backend.onrender.com",
+    baseURL: "https://ethiopian-names-explorer-backend.vercel.app",
     // baseURL: "http://localhost:4000", // Use this for local development
 })
 
