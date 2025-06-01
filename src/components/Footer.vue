@@ -1,7 +1,6 @@
 <script setup>
 import Logo from './Subcomponents/Logo.vue';
 const year = new Date().getFullYear();
-
 </script>
 <template>
   <footer class="bg-gray-900 text-white">
@@ -30,11 +29,13 @@ const year = new Date().getFullYear();
         <div>
           <h3 class="text-lg font-display font-semibold mb-4">Contact</h3>
           <p class="text-gray-400 text-sm">
-            For questions, feedback, or collaboration opportunities, please reach out to us.
+            For questions, feedback, or collaboration opportunities, please reach out to me.
           </p>
-          <button class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-gray-900 bg-white hover:bg-gray-100">
-            Contact Us
-          </button>
+          <a href="https://t.me/IyasuHa">
+            <button class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-gray-900 bg-white hover:bg-gray-100">
+              Contact Me
+            </button>
+          </a>
         </div>
       </div>
       
@@ -47,7 +48,7 @@ const year = new Date().getFullYear();
             <span class="sr-only">GitHub</span>
             <i class="pi pi-github p-2"> </i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-white">
+          <a href="https://x.com/Iyasu70653476?t=8d57yo3Ihqd3IDdfiLeSaw" class="text-gray-400 hover:text-white">
             <span class="sr-only">Twitter</span>
             <i class="pi pi-twitter p-2"> </i>
           </a>
