@@ -59,7 +59,9 @@ const getCoords = (city) => {
             :total_population="total_population"
           />
           <SearchSection />
-          <About />
+          <About 
+            :total_population="total_population"
+          />
         </main>
       </div>
     </div>

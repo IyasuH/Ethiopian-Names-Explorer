@@ -4,7 +4,7 @@ import SectionTitle from './Subcomponents/SectionTitle.vue';
 import SectionSubtitle from './Subcomponents/SectionSubtitle.vue';
 import ChartButton from './Subcomponents/ChartButton.vue';
 import ChartItem from './Subcomponents/ChartItem.vue';
-import { getTopNames, getTopFNames } from '../services/api';
+import { getTopNames, getTopFNames, getTopGFNames } from '../services/api';
 
 defineProps({
     total_population: Number
@@ -16,22 +16,12 @@ const name_types = ["Given Names", "Father's Names", "Grandfather's Names"]
 const chart_items = ref([])
 const given_names_chart = ref([])
 const father_names_chart = ref([])
-const grand_names_chart = ref([
-    {name: "Getachew", count: 3200, percent: 100},
-    {name: "Mohammed", count: 2800, percent: 70},
-    {name: "Tigist", count: 2500, percent: 62},
-    {name: "Kidus", count: 2200, percent: 55},
-    {name: "Hiwot", count: 2000, percent: 50},
-    {name: "Dawit", count: 1800, percent: 45},
-    {name: "Rahel", count: 1600, percent: 40},
-    {name: "Yonas", count: 1500, percent: 37},
-    {name: "Meron", count: 1400, percent: 35},
-    {name: "Henok", count: 1300, percent: 32}
-])
+const grand_names_chart = ref([])
 
 onMounted(async () => {
     given_names_chart.value = await getTopNames()
     father_names_chart.value = await getTopFNames()
+    grand_names_chart.value = await getTopGFNames()
     chart_items.value = given_names_chart.value // default to Given Names
     console.log(`father_names_chart.value: ${given_names_chart.value[0].count}`)
 })
@@ -46,7 +36,7 @@ const changeActiveChart = (chartName) => {
     } else if (chartName === "Father's Names") {
         chart_items.value = father_names_chart.value
     } else if (chartName === "Grandfather's Names") {
-        chart_items.value = grand_names_chart
+        chart_items.value = grand_names_chart.value
     }
 }
 

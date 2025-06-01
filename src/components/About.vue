@@ -1,6 +1,11 @@
 <script setup>
 import SectionTitle from './Subcomponents/SectionTitle.vue';
 import SectionSubtitle from './Subcomponents/SectionSubtitle.vue';
+
+defineProps({
+    total_population: Number
+})
+
 </script>
 
 <template>
@@ -59,7 +64,7 @@ import SectionSubtitle from './Subcomponents/SectionSubtitle.vue';
                 
                 <p class="mt-4 text-gray-600">
                     This application is built using modern web technologies and is designed to be accessible, responsive, and
-                    user-friendly. The dataset includes 100,000 records of Ethiopian people, with each record containing a
+                    user-friendly. The dataset includes {{ total_population.toLocaleString() }} records of Ethiopian people, with each record containing a
                     person's full name and their general location.
                 </p>
                 
@@ -73,7 +78,7 @@ import SectionSubtitle from './Subcomponents/SectionSubtitle.vue';
                 </p>
                 <p class="mt-4 text-gray-600">
                     This is a demonstration project. In a production environment, the application would connect to a secure
-                    database containing the actual dataset of 100,000 records.
+                    database containing the actual dataset of {{ total_population.toLocaleString() }} records.
                 </p>
                 </div>
             </div>

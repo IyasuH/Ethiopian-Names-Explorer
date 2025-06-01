@@ -43,7 +43,7 @@ const year = new Date().getFullYear();
           &copy; {{ year }} Ethiopian Names Explorer. All rights reserved.
         </p>
         <div class="mt-4 md:mt-0 flex space-x-4">
-          <a href="#" class="text-gray-400 hover:text-white">
+          <a href="https://github.com/IyasuH/Ethiopian-Names-Explorer" class="text-gray-400 hover:text-white">
             <span class="sr-only">GitHub</span>
             <i class="pi pi-github p-2"> </i>
           </a>
