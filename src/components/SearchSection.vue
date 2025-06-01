@@ -4,7 +4,7 @@ import SectionSubtitle from './Subcomponents/SectionSubtitle.vue';
 import SearchButton from './Subcomponents/SearchButton.vue';
 import NavButton from './Subcomponents/NavButton.vue';
 import { ref } from 'vue';
-import { searchName, searchFName } from '../services/api';
+import { searchName, searchFName, searchGFName } from '../services/api';
 
 const name_filters = [
     {label: "Given name", value: "name"},
@@ -44,16 +44,16 @@ const SearchFunc = async () => {
     if (name_type_value === "name") {
         search_sample.value = await searchName(name_value, current_page.value, city_value);
         total_no_pages.value = search_sample.value.numberOfPages;
-        // length_per_page.value = await search_sample.value.formatted.length;
-        await console.log(`Search button is clicked. ${JSON.stringify(search_sample.value)}`);
+        length_per_page.value = await search_sample.value.formatted.length;
     } else if (name_type_value === "father_name") {
         search_sample.value = await searchFName(name_value, current_page.value, city_value);
         total_no_pages.value = search_sample.value.numberOfPages;
-        await console.log(`Search button is clicked. ${JSON.stringify(search_sample.value)}`);
+        length_per_page.value = await search_sample.value.formatted.length;
     } else if (name_type_value === "grand_father_name") {
-        // Implement search logic for grandfather's name
-        console.log(`Searching for grandfather's name: ${name_value} in city: ${city_value}`);
-        // Placeholder for actual search logic
+        search_sample.value = await searchGFName(name_value, current_page.value, city_value);
+        console.log(`search_sample.value: ${search_sample.value}`);
+        total_no_pages.value = search_sample.value.numberOfPages;
+        length_per_page.value = await search_sample.value.formatted.length;
     }
 }
 

@@ -32,8 +32,7 @@ export const getFNameFrequency = (location: string) =>
 export const getTopFNames = () => api.get('/api/public_fname/top-names').then(response => response.data); // Gets the top 10 first names nationwide
 
 //Grand Father Names API
-export const searchGFName = (name: string, page: Number, city: string) => {
+export const searchGFName = (name: string, page: Number, city: string) =>
     api.get(`/api/public_gfname/search-grandfather-name?name=${name}&page=${page}&city=${city}`).then(response => response.data); // Searches for a grandfather name and returns its frequency in diiferent locations
-}
 
 export const getTopGFNames = () => api.get('/api/public_gfname/top-names').then(response => response.data); // Returns the frequency of top first names in a given location
