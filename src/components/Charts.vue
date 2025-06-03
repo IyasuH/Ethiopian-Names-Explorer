@@ -26,13 +26,11 @@ onMounted(async () => {
     grand_names_chart.value = await getTopGFNames()
     chart_items.value = given_names_chart.value // default to Given Names
     out_of_percentage.value = chart_items.value[0].count + 500;
-    console.log(`father_names_chart.value: ${given_names_chart.value[0].count}`)
 })
 
 
 
 const changeActiveChart = (chartName) => {
-    console.log(`Changed active chart to ${chartName}`)
     activeChart.value = chartName;
     if (chartName === "Given Names"){
         chart_items.value = given_names_chart.value

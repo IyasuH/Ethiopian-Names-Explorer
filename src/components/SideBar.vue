@@ -17,7 +17,6 @@ defineProps({
 const activeSection = ref('map');
 
 const changeActive = (active) => {
-    console.log(`changing to color ${active}`)
     activeSection.value = active
 }
 

@@ -51,7 +51,6 @@ const SearchFunc = async () => {
         length_per_page.value = await search_sample.value.formatted.length;
     } else if (name_type_value === "grand_father_name") {
         search_sample.value = await searchGFName(name_value, current_page.value, city_value);
-        console.log(`search_sample.value: ${search_sample.value}`);
         total_no_pages.value = search_sample.value.numberOfPages;
         length_per_page.value = await search_sample.value.formatted.length;
     }

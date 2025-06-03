@@ -23,7 +23,7 @@ onMounted(async () => {
     city_freq.value = await getCityFrequency()
     const unique_names_count_ = await countUniqueNames(); 
     unique_names_count.value = unique_names_count_.items;
-    console.log(`Unique names count: ${unique_names_count.value}`);
+    
     for (let city in city_freq.value) {
       total_population.value += city_freq.value[city];
     }
@@ -33,10 +33,6 @@ onMounted(async () => {
     console.error(`Failed to load map data, ${err}`);
   }
 });
-
-const getCoords = (city) => {
-  return cityCoords[city] || [9.145, 40.4897]; // Fallback to Ethiopia center
-};
 
 useHead({
   title: 'Ethiopian Names Explorer',

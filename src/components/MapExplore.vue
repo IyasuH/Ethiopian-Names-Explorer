@@ -64,7 +64,6 @@ const fetchTopCityNames = async () => {
         }
         topCityNames.value.sort((a, b) => b.pop_number - a.pop_number);
     }
-    console.log(`Top names for ${selectedRegion.value}:`, topCityNames);
 };
 
 onMounted(async () => {
