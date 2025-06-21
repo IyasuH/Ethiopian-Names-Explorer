@@ -6,6 +6,7 @@ import SectionSubtitle from './Subcomponents/SectionSubtitle.vue';
 import regionData from '../assets/ethiopia-region.json';
 import { getRegionsFrequency, getTopCityNames } from '../services/api';
 import region_cities from '../assets/region_cities.json';
+import { RouterLink } from 'vue-router';
 
 const regions = ref(regionData);
 const result = ref([]);
@@ -17,11 +18,6 @@ const transform = ref({ x: 0, y: 0, scale: 1 });
 const isPanning = ref(false);
 const start = ref({ x: 0, y: 0 });
 
-const top_names = ref([
-    {name: 'Abebe', pop_number: 1245, color_number: 600},
-    {name: 'Tadesse', pop_number: 982, color_number: 500},
-    {name: 'Getachew', pop_number: 876, color_number: 400}
-])
 
 const startPan = (event) => {
     isPanning.value = true;
@@ -55,8 +51,8 @@ const fetchTopCityNames = async () => {
     const cities = region_cities[selectedRegion.value] || [];
     topCityNames.value = [];
     for (let city of cities) {
-        let top_names = await getTopCityNames(city);
-        for (let top_name of top_names) {
+        let top_names = await getTopCityNames(city, 3);
+        for (let top_name of top_names.formatted) {
             topCityNames.value.push({
                 name: top_name.name,
                 pop_number: top_name.count || 0
@@ -97,8 +93,6 @@ onMounted(async () => {
                                         @click="selectRegion(region.name)"
                                         :d="region.path"
                                         :class="[
-                                        // regions_color.get(region.name) || 'fill-primary-200',
-                                        // region.color,
                                         `fill-primary-${region.color}`,
                                         `hover: fill-primary-${region.hover_color}`,
                                         selectedRegion === region.name ? 'stroke-primary-800' : 'stroke-primary-300',
@@ -140,10 +134,10 @@ onMounted(async () => {
                             </div>
                         
                             <div class="pt-2">
-                                <button class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
+                                <RouterLink :to="`region/${selectedRegion}`" class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center">
                                 View detailed statistics
-                                <i class="pi pi-angle-right p-2"> </i>
-                                </button>
+                                    <i class="pi pi-angle-right p-2"> </i>
+                                </RouterLink>
                             </div>
                         </div>
                     </div>

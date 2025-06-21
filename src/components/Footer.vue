@@ -31,7 +31,7 @@ const year = new Date().getFullYear();
           <p class="text-gray-400 text-sm">
             For questions, feedback, or collaboration opportunities, please reach out to me.
           </p>
-          <a href="https://t.me/IyasuHa">
+          <a href="https://t.me/IyasuHa" target="_blank">
             <button class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-gray-900 bg-white hover:bg-gray-100">
               Contact Me
             </button>
@@ -44,11 +44,11 @@ const year = new Date().getFullYear();
           &copy; {{ year }} Ethiopian Names Explorer. All rights reserved.
         </p>
         <div class="mt-4 md:mt-0 flex space-x-4">
-          <a href="https://github.com/IyasuH/Ethiopian-Names-Explorer" class="text-gray-400 hover:text-white">
+          <a href="https://github.com/IyasuH/Ethiopian-Names-Explorer" target="_blank" class="text-gray-400 hover:text-white">
             <span class="sr-only">GitHub</span>
             <i class="pi pi-github p-2"> </i>
           </a>
-          <a href="https://x.com/Iyasu70653476?t=8d57yo3Ihqd3IDdfiLeSaw" class="text-gray-400 hover:text-white">
+          <a href="https://x.com/Iyasu70653476?t=8d57yo3Ihqd3IDdfiLeSaw" target="_blank" class="text-gray-400 hover:text-white">
             <span class="sr-only">Twitter</span>
             <i class="pi pi-twitter p-2"> </i>
           </a>
