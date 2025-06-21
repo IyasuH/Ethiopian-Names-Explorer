@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    // baseURL: "https://ethiopian-names-explorer-backend.vercel.app",
-    baseURL: "http://localhost:4000", // Use this for local development
+    baseURL: "https://ethiopian-names-explorer-backend.vercel.app",
+    // baseURL: "http://localhost:4000", // Use this for local development
     timeout: 10000, // Set a timeout of 10 seconds
     headers: {
         "Content-Type": "application/json"
