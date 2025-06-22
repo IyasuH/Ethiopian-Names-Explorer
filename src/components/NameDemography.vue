@@ -50,13 +50,13 @@ const total_population = props.region_population || 0;
 
             <DemographyCard 
              :card="name_props[1]"
-             :topRegionName="topRegionNames[1]"
+             :topRegionName="topRegionFatherNames[0]"
              :unique_region_names_count="unique_region_father_names_count"
             />
 
             <DemographyCard 
              :card="name_props[2]"
-             :topRegionName="topRegionNames[2]"
+             :topRegionName="topRegionGrandFatherNames[0]"
              :unique_region_names_count="unique_region_grand_father_names_count"
             />
         </div>

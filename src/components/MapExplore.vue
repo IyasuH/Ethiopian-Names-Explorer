@@ -93,9 +93,11 @@ onMounted(async () => {
                                         @click="selectRegion(region.name)"
                                         :d="region.path"
                                         :class="[
+                                        // regions_color.get(region.name) || 'fill-primary-200' || 'fill-primary-400' || 'fill-primary-500' || 'fill-primary-300' || 'fill-primary-100'
+                                        // regions_color
                                         `fill-primary-${region.color}`,
                                         `hover: fill-primary-${region.hover_color}`,
-                                        selectedRegion === region.name ? 'stroke-primary-800' : 'stroke-primary-300',
+                                        selectedRegion === region.name ? 'stroke-primary-900' : 'stroke-primary-400',
                                         'cursor-pointer transition-colors'
                                         ]"
                                     />
