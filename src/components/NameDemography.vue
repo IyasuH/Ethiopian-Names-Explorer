@@ -1,5 +1,4 @@
 <script setup>
-import { ref, defineProps } from 'vue';
 import DemographyCard from './Subcomponents/DemographyCard.vue';
 import TopNamesList from './Subcomponents/TopNamesList.vue';
 

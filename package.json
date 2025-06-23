@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@unhead/vue": "^2.0.10",
     "@vueuse/head": "^2.0.0",
     "axios": "^1.9.0",
     "primeicons": "^7.0.0",
