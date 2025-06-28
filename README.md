@@ -18,7 +18,7 @@
 ## About
 
 Ethiopian Names Explorer is a passion project designed to showcase the beauty and diversity of Ethiopian names, rooted in the country’s vibrant cultural and historical traditions. The application provides a user-friendly interface to browse names, with a focus on accessibility and cultural appreciation. Built with modern web technologies, it serves as a portfolio piece demonstrating skills in Vue.js development and front-end design.
-
+    
 ## Features
 
 - **Explore Names**: Browse a collection of authentic Ethiopian names inspired by languages like Amharic, Oromo, and Tigrinya.
@@ -49,7 +49,7 @@ To run the project locally, follow these steps:
 1. **Clone the repository**:
     
     ```bash
-    git clone https://github.com/your-username/ethiopian-names-explorer.git
+    git clone https://github.com/IyasuH/ethiopian-names-explorer.git
     cd ethiopian-names-explorer
     ```
     
