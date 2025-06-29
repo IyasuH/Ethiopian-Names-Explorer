@@ -2,11 +2,12 @@ import { createWebHistory, createRouter } from 'vue-router';
 
 import HomeView from '../views/HomeView.vue';
 import RegionsView from '../views/RegionsView.vue';
+import NotFound from '../views/NotFound.vue';
 
 const routes = [
     { path: '/', name: 'Home', component: HomeView },
     { path: '/region/:region_name', name: 'Regions', component: RegionsView },
-    //   { path: '/about', component: AboutView },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound } // Catch-all route for 404
 ]
 
 const router = createRouter({
@@ -14,19 +15,5 @@ const router = createRouter({
     routes,
 })
 
-// Counter animation
-// Smooth scrolling for navigation
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
 
 export default router;
