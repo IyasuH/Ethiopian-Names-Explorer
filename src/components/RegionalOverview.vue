@@ -46,7 +46,6 @@ const city_description = [
 ]
 
 
-console.log(`city freq ${props.city_freq}`)
 
 </script>
 <template>

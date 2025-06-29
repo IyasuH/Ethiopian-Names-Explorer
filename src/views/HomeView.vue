@@ -25,7 +25,6 @@ const sections_ = [
 
 onMounted(async () => {
   try {
-    console.log("Loading map data...");
     city_freq.value = await getCityFrequency()
     const unique_names_count_ = await countUniqueNames(); 
     unique_names_count.value = unique_names_count_.items;

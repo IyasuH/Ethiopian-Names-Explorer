@@ -25,7 +25,6 @@ const outputDir = path.join(__dirname, 'dist');
 
         await mkdir(path.dirname(outputPath), { recursive: true });
         await writeFile(outputPath, html);
-        console.log(`Prerendered: ${outputPath}`);
     }
 
     await browser.close();

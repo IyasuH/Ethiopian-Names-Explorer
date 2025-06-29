@@ -19,10 +19,10 @@ const year = new Date().getFullYear();
         <div>
           <h3 class="text-lg font-display font-semibold mb-4">Quick Links</h3>
           <ul class="space-y-2">
-            <li><a href="#map" class="text-gray-400 hover:text-white transition-colors">Interactive Map</a></li>
-            <li><a href="#charts" class="text-gray-400 hover:text-white transition-colors">Name Charts</a></li>
-            <li><a href="#search" class="text-gray-400 hover:text-white transition-colors">Search & Filter</a></li>
-            <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+            <li><a href="/#map" class="text-gray-400 hover:text-white transition-colors">Interactive Map</a></li>
+            <li><a href="/#charts" class="text-gray-400 hover:text-white transition-colors">Name Charts</a></li>
+            <li><a href="/#search" class="text-gray-400 hover:text-white transition-colors">Search & Filter</a></li>
+            <li><a href="/#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
           </ul>
         </div>
         

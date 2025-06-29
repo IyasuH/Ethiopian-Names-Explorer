@@ -17,6 +17,5 @@ sitemap.end();
 streamToPromise(sitemap)
     .then(data => {
         createWriteStream(outputPath).write(data.toString());
-        console.log(`Sitemap generated at ${outputPath}`);
     })
     .catch(err => console.error('Error generating sitemap:', err));
