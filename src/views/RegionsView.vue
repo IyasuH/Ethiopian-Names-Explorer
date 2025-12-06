@@ -132,7 +132,6 @@ const fetchTopRegionGrandFatherNames = async () => {
                     :unique_region_grand_father_names_count="uniqueRegionGrandFatherNamesCount"                    
                  />
                 <RareNames />
-                <h1>Region Data</h1>
             </main>
         </div>
     </div>

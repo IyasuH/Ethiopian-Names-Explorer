@@ -19,10 +19,10 @@ const year = new Date().getFullYear();
         <div>
           <h3 class="text-lg font-display font-semibold mb-4">Quick Links</h3>
           <ul class="space-y-2">
-            <li><a href="/#map" class="text-gray-400 hover:text-white transition-colors">Interactive Map</a></li>
-            <li><a href="/#charts" class="text-gray-400 hover:text-white transition-colors">Name Charts</a></li>
-            <li><a href="/#search" class="text-gray-400 hover:text-white transition-colors">Search & Filter</a></li>
-            <li><a href="/#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+            <li><a href="/#map" class="text-gray-400 hover:text-white transition-colors duration-200">Interactive Map</a></li>
+            <li><a href="/#charts" class="text-gray-400 hover:text-white transition-colors duration-200">Name Charts</a></li>
+            <li><a href="/#search" class="text-gray-400 hover:text-white transition-colors duration-200">Search & Filter</a></li>
+            <li><a href="/#about" class="text-gray-400 hover:text-white transition-colors duration-200">About</a></li>
           </ul>
         </div>
         
@@ -31,8 +31,8 @@ const year = new Date().getFullYear();
           <p class="text-gray-400 text-sm">
             For questions, feedback, or collaboration opportunities, please reach out to me.
           </p>
-          <a href="https://t.me/IyasuHa" target="_blank">
-            <button class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-gray-900 bg-white hover:bg-gray-100">
+          <a href="mailto:contact@iyasu.dev" target="_blank">
+            <button class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-gray-900 bg-white hover:bg-gray-100 transition-all duration-200 hover:shadow-md">
               Contact Me
             </button>
           </a>
@@ -44,13 +44,17 @@ const year = new Date().getFullYear();
           &copy; {{ year }} Ethiopian Names Explorer. All rights reserved.
         </p>
         <div class="mt-4 md:mt-0 flex space-x-4">
-          <a href="https://github.com/IyasuH/Ethiopian-Names-Explorer" target="_blank" class="text-gray-400 hover:text-white">
+          <a href="https://github.com/IyasuH/Ethiopian-Names-Explorer" target="_blank" class="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110">
             <span class="sr-only">GitHub</span>
             <i class="pi pi-github p-2"> </i>
           </a>
-          <a href="https://x.com/Iyasu70653476?t=8d57yo3Ihqd3IDdfiLeSaw" target="_blank" class="text-gray-400 hover:text-white">
-            <span class="sr-only">Twitter</span>
-            <i class="pi pi-twitter p-2"> </i>
+          <a href="https://www.linkedin.com/in/eyasu-hailegebriel-a423601a3/" target="_blank" class="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110">
+            <span class="sr-only">LinkedIn</span>
+            <i class="pi pi-linkedin p-2"> </i>
+          </a>
+          <a href="https://Iyasu.dev" target="_blank" class="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110">
+            <span class="sr-only">Website</span>
+            <i class="pi pi-globe p-2"> </i>
           </a>
         </div>
       </div>

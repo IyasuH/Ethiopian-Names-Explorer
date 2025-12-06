@@ -79,7 +79,7 @@ const changeActiveChart = (chartName) => {
                 <!-- Placeholder for chart -->
                 <div class="h-full flex flex-col">
                     <div class="flex items-center justify-between mb-4">
-                        <h4 class="font-medium text-gray-900">Top 10 Given Names</h4>
+                        <h4 class="font-medium text-gray-900">Top 10 {{ selected_name_type }}s</h4>
                     </div>
                     
                     <div class="flex-1 flex flex-col justify-between">

@@ -51,25 +51,38 @@ const fetchTopCityNames = async () => {
     const cities = region_cities[selectedRegion.value] || [];
     topCityNames.value = [];
     for (let city of cities) {
-        let top_names = await getTopCityNames(city, 3);
-        for (let top_name of top_names.formatted) {
-            topCityNames.value.push({
-                name: top_name.name,
-                pop_number: top_name.count || 0
-            });
+        try {
+            let top_names = await getTopCityNames(city, 3);
+            for (let top_name of top_names.formatted) {
+                topCityNames.value.push({
+                    name: top_name.name,
+                    pop_number: top_name.count || 0
+                });
+            }
+        } catch (error) {
+            console.error(`Error fetching names for ${city}:`, error);
+        }
         }
         topCityNames.value.sort((a, b) => b.pop_number - a.pop_number);
     }
-};
+// };
 
 onMounted(async () => {
     // Initialize the map or any other setup if needed
-    result.value = await getRegionsFrequency();
+    try {
+        result.value = await getRegionsFrequency();
+    } catch (error) {
+        console.error('Error fetching region frequency:', error);
+    }
     // for (let region in result.value) {
     // regions_color.value.set(region[])
     // }
     selectedRegionPop.value = result.value[selectedRegion.value] || 0;
-    await fetchTopCityNames();
+    try {
+        await fetchTopCityNames();
+    } catch (error) {
+        console.error('Error fetching top city names:', error);
+    }
 });
 
 </script>
@@ -84,7 +97,7 @@ onMounted(async () => {
             />
             <div class="p-6">
                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="md:col-span-2 relative bg-gray-100 rounded-lg p-4 h-[500px] overflow-hidden">
+                    <div class="md:col-span-2 relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 h-[500px] overflow-hidden shadow-inner">
                         <!-- SVG Map of Ethiopia -->
                         <svg viewBox="0 0 600 600" class="w-full h-full" @mousedown="startPan" @mousemove="pan" @mouseup="endPan" @wheel="zoom">
                             <g :transform="`translate(${transform.x}, ${transform.y}) scale(${transform.scale})`">
@@ -96,9 +109,9 @@ onMounted(async () => {
                                         // regions_color.get(region.name) || 'fill-primary-200' || 'fill-primary-400' || 'fill-primary-500' || 'fill-primary-300' || 'fill-primary-100'
                                         // regions_color
                                         `fill-primary-${region.color}`,
-                                        `hover: fill-primary-${region.hover_color}`,
+                                        `hover:fill-primary-${region.hover_color}`,
                                         selectedRegion === region.name ? 'stroke-primary-900' : 'stroke-primary-400',
-                                        'cursor-pointer transition-colors'
+                                        'cursor-pointer transition-colors duration-200'
                                         ]"
                                     />
                                     <text
@@ -112,12 +125,12 @@ onMounted(async () => {
                                 </g>
                             </g>
                         </svg>                            
-                        <div class="absolute bottom-4 left-4 text_xs text-gray-500 bg-white/80 px-2 py-1 rounded">
+                        <div class="absolute bottom-4 left-4 text-xs text-gray-500 bg-white/90 px-3 py-1.5 rounded-md shadow-sm backdrop-blur-sm">
                             Click on a region to see details
                         </div>
                     </div>
                     <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
-                        <h3 class="text_xl font-display font-semibold mb-4">{{ selectedRegion }} Region</h3>
+                        <h3 class="text-xl font-display font-semibold mb-4">{{ selectedRegion }} Region</h3>
                         <div class="space-y-4">
                             <div class="flex justify-between items-center">
                                 <span class="text-gray-600">Population in dataset:</span>

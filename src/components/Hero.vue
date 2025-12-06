@@ -14,10 +14,10 @@ defineProps({
           Discover patterns, trends, and insights from our dataset of {{ total_population.toLocaleString() }} Ethiopian names
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href="#map" class="bg-white text-primary-700 hover:bg-primary-50 px-6 py-3 rounded-lg font-medium transition-colors">
+          <a href="#map" class="bg-white text-primary-700 hover:bg-primary-50 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:scale-105">
             Explore Map
           </a>
-          <a href="#search" class="bg-primary-600 text-white hover:bg-primary-500 px-6 py-3 rounded-lg font-medium transition-colors border border-primary-500">
+          <a href="#search" class="bg-primary-600 text-white hover:bg-primary-500 px-6 py-3 rounded-lg font-medium transition-all duration-200 border border-primary-500 hover:shadow-lg hover:scale-105">
             Search Names
           </a>
         </div>

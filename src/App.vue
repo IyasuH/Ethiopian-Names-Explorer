@@ -7,7 +7,6 @@ import { useHead } from '@unhead/vue';
 import { RouterView } from 'vue-router';
 
 useHead({
-  title: 'Ethiopian Names Explorer',
   meta: [
   { charset: 'UTF-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
@@ -49,10 +48,10 @@ useHead({
 </script>
 
 <template>
-  <div className="flex min-h-screen flex-col">
+  <div class="flex min-h-screen flex-col">
     <Header />
     <RouterView />
+    <Footer />
   </div>
-  <Footer />  
 </template>
 
