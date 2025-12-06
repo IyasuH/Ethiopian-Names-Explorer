@@ -36,24 +36,27 @@ const city_filters = [
     {label: "Semera", value: "Semera"}
 ]
 const search_sample = ref({"formatted": [], "total": 5});
+const isLoading = ref(false);
 
 const SearchFunc = async () => {
+    isLoading.value = true;
     const city_value = selected_City.value.trim();
     const name_type_value = selected_Name_Type.value.trim();
     const name_value = search_Name.value.trim().toUpperCase();
     if (name_type_value === "name") {
         search_sample.value = await searchName(name_value, current_page.value, city_value);
-        total_no_pages.value = search_sample.value.numberOfPages;
+        total_no_pages.value = search_sample.value.total;
         length_per_page.value = await search_sample.value.formatted.length;
     } else if (name_type_value === "father_name") {
         search_sample.value = await searchFName(name_value, current_page.value, city_value);
-        total_no_pages.value = search_sample.value.numberOfPages;
+        total_no_pages.value = search_sample.value.total;
         length_per_page.value = await search_sample.value.formatted.length;
     } else if (name_type_value === "grand_father_name") {
         search_sample.value = await searchGFName(name_value, current_page.value, city_value);
-        total_no_pages.value = search_sample.value.numberOfPages;
+        total_no_pages.value = search_sample.value.total;
         length_per_page.value = await search_sample.value.formatted.length;
     }
+    isLoading.value = false;
 }
 
 const resetSearch = () => {
@@ -119,15 +122,15 @@ const previousPage = () => {
                     </div>
 
                     <div> 
-                        <SearchButton title="Search" @click="SearchFunc()"/> 
-                        <button @click="resetSearch" class="ml-2 inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500">
+                        <SearchButton title="Search" @click="SearchFunc()" :disabled="isLoading"/> 
+                        <button @click="resetSearch" :disabled="isLoading" class="ml-2 inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 disabled:opacity-50 disabled:cursor-not-allowed">
                             <i class="pi pi-refresh p-2"></i>
                             Reset
                         </button>
                     </div>
                     
                     <div class="mt-4">
-                        <div class="overflow-hidden border border-gray-200 sm:rounded-lg">
+                        <div class="overflow-x-auto border border-gray-200 sm:rounded-lg">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
@@ -137,7 +140,19 @@ const previousPage = () => {
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr v-for="search_data in (search_sample.formatted)">
+                                    <tr v-if="isLoading">
+                                        <td colspan="3" class="px-6 py-8 text-center text-sm text-gray-500">
+                                            <i class="pi pi-spin pi-spinner text-2xl text-accent-500 mb-2"></i>
+                                            <p>Searching...</p>
+                                        </td>
+                                    </tr>
+                                    <tr v-else-if="search_sample.formatted.length === 0">
+                                        <td colspan="3" class="px-6 py-8 text-center text-sm text-gray-500">
+                                            <i class="pi pi-search text-2xl text-gray-400 mb-2"></i>
+                                            <p>No results found. Try searching for a name.</p>
+                                        </td>
+                                    </tr>
+                                    <tr v-for="(search_data, index) in search_sample.formatted" :key="`${search_data.name}-${search_data.location}-${index}`" class="hover:bg-gray-50 transition-colors duration-150">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ search_data.name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ search_data.count.toLocaleString() }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ search_data.location }}</td>
