@@ -45,3 +45,7 @@ export const getTopCityGrandFatherNames = async (location: string, limit: number
 export const getTopGFNames = async () => await api.get('/api/public_gfname/top-names').then(response => response.data);
 export const rareGrandFatherName = async (page: Number, city: string) =>
     await api.get(`/api/public_gfname/rare-names?page=${page}&city=${city}`).then(response => response.data)
+
+// AI API
+export const aiChat = async (currentMessage: string, conversationHistory: any[]) =>
+    await api.post('/api/ai_chat', { currentMessage, conversationHistory }).then(response => response.data);

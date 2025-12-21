@@ -2,6 +2,7 @@
 import Header from './components/Header.vue';
 
 import Footer from './components/Footer.vue';
+import AssistantChat from './components/AssistantChat.vue';
 
 import { useHead } from '@unhead/vue';
 import { RouterView } from 'vue-router';
@@ -51,6 +52,7 @@ useHead({
   <div class="flex min-h-screen flex-col">
     <Header />
     <RouterView />
+    <AssistantChat />
     <Footer />
   </div>
 </template>
