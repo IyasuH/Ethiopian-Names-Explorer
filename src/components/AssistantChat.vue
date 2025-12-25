@@ -1,28 +1,34 @@
 <script setup lang="ts">
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import { Transition } from 'vue';
     import { aiChat } from '../services/api';
+    import MarkdownIt from 'markdown-it';
+    import DOMPurify from 'dompurify';
     interface Message {
         role: string;
         content: string;
         timestamp: Date;
     }
+
+    let mdRenderer: any = null
+    let purifier: any = null
+
+    mdRenderer = new MarkdownIt({ linkify: true, breaks: true })
+    purifier = DOMPurify
+
     const isOpen = ref(false);
     const greetingMessage: Message = {
         role: 'assistant', 
         content: `
-            I am Grid, your natural language interface for the Ethiopian Names Explorer. I ground your questions in our database to find trends and name frequencies.
+I am **Grid**, your natural language interface for the **Ethiopian Names Explorer**. 
 
-            Try asking me something like:
+Try asking me something like:
 
-                - What are the top 10 names in Addis Ababa?
-                - How common is the name Abebe Kebede?
-                - Find the most frequent father names in Gondar.
-                - Are there many people named Chaltu in Adama?
-                - What are the most common names in Ethiopia?
-            
-            `, 
-            timestamp: new Date() }
+  • What are the top 10 names in Addis Ababa?
+  • How common is the name Abebe Kebede?
+  • Are there many people named Chaltu in Adama?
+  • What are the most common names in Ethiopia?`, 
+        timestamp: new Date() }
     const messages = ref<Message[]>([greetingMessage]);    
     const inputMessage = ref('');
     const isTyping = ref(false);
@@ -60,14 +66,37 @@
         }, 500);
 
         await aiChat(message, conversationHistory).then(response => {
-            messages.value.push({ role: 'assistant', content: response, timestamp: new Date() });
-            isTyping.value = false;
+          messages.value.push({ role: 'assistant', content: response.response, timestamp: new Date() });
+          isTyping.value = false;
         })
     };
-    
-    const renderMarkdown = (markdown: string) => {
-        return markdown.replace(/\n/g, '<br>');
-    };
+
+    const basicEscape = (s: string) =>
+    s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+
+    const renderMarkdown = (text: string) => {
+      if (!text) return ''
+        // Fallback: escape HTML and preserve newlines
+        let html = basicEscape(text).replace(/\n/g, '<br/>')
+        if (mdRenderer) {
+          try {
+            html = mdRenderer.render(text)
+          } catch {
+            // keep fallback html
+          }
+        }
+        if (purifier) {
+          try {
+            return purifier.sanitize(html)
+          } catch {
+            return html
+          }
+        }
+        return html
+          };
     
     const formatTime = (timestamp: Date) => {
         return timestamp.toLocaleTimeString();
@@ -129,7 +158,7 @@
                   : 'bg-white text-gray-900 rounded-bl-sm border border-gray-200 '
               ]"
             >
-              <div class="text-sm markdown-body" v-html="renderMarkdown(message.content)"></div>
+              <div class="text-sm markdown-body" v-html="renderMarkdown(message.content)"/>
               <span
                 :class="[
                   'text-xs mt-1 block',
