@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, nextTick } from 'vue';
     import { Transition } from 'vue';
     import { aiChat } from '../services/api';
     import MarkdownIt from 'markdown-it';
@@ -16,6 +16,14 @@
     mdRenderer = new MarkdownIt({ linkify: true, breaks: true })
     purifier = DOMPurify
 
+    const commonActions = [
+        'What are the most common names in Ethiopia?',
+        'How common is the name Abebe Kebede?',
+        'Are there many people named Chaltu in Adama?',
+        'What are the top 10 names in Addis Ababa?',
+        'Show me statistics for Dire Dawa',
+        'Tell me about ENE\'s services'
+    ];
     const isOpen = ref(false);
     const greetingMessage: Message = {
         role: 'assistant', 
@@ -27,7 +35,8 @@ Try asking me something like:
   • What are the top 10 names in Addis Ababa?
   • How common is the name Abebe Kebede?
   • Are there many people named Chaltu in Adama?
-  • What are the most common names in Ethiopia?`, 
+  • Show me statistics for Dire Dawa
+  • Tell me about ENE's services`, 
         timestamp: new Date() }
     const messages = ref<Message[]>([greetingMessage]);    
     const inputMessage = ref('');
@@ -54,6 +63,7 @@ Try asking me something like:
         }));
 
     const sendMessage = async () => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         const message = inputMessage.value.trim()
 
         if (!message || isTyping.value) return;
@@ -61,14 +71,16 @@ Try asking me something like:
         inputMessage.value = '';
         isTyping.value = true;
         
-        setTimeout(() => {
-            messages.value.push({ role: 'assistant', content: 'Thinking...', timestamp: new Date() });
-        }, 500);
-
         await aiChat(message, conversationHistory).then(response => {
           messages.value.push({ role: 'assistant', content: response.response, timestamp: new Date() });
           isTyping.value = false;
-        })
+          nextTick(() => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+          });
+        }).catch(() => {
+          messages.value.push({ role: 'assistant', content: 'Sorry, I encountered an error. Please try again.', timestamp: new Date() });
+          isTyping.value = false;
+        });
     };
 
     const basicEscape = (s: string) =>
@@ -203,6 +215,12 @@ Try asking me something like:
               <i class="pi pi-send w-5 h-5" > </i>
             </button>
           </form>
+          <!-- common actions -->
+          <div class="flex items-center flex-row gap-2 flex-wrap justify-center mt-3 " >
+            <Button v-for="action in commonActions" :key="action" class="text-xs bg-blue-100 text-blue-700 px-3 py-1.5" @click="inputMessage = action">
+              {{ action }}
+            </Button>
+          </div>
           <p class="text-xs text-gray-500 mt-2 text-center">
             Press Enter to send, Shift+Enter for new line
           </p>
