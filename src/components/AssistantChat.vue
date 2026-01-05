@@ -63,24 +63,20 @@ Try asking me something like:
         }));
 
     const sendMessage = async () => {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        const message = inputMessage.value.trim()
+      const message = inputMessage.value.trim()
 
-        if (!message || isTyping.value) return;
-        messages.value.push({ role: 'user', content: message, timestamp: new Date() });
-        inputMessage.value = '';
-        isTyping.value = true;
-        
-        await aiChat(message, conversationHistory).then(response => {
-          messages.value.push({ role: 'assistant', content: response.response, timestamp: new Date() });
-          isTyping.value = false;
-          nextTick(() => {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-          });
-        }).catch(() => {
-          messages.value.push({ role: 'assistant', content: 'Sorry, I encountered an error. Please try again.', timestamp: new Date() });
-          isTyping.value = false;
-        });
+      if (!message || isTyping.value) return;
+      messages.value.push({ role: 'user', content: message, timestamp: new Date() });
+      inputMessage.value = '';
+      isTyping.value = true;
+      
+      await aiChat(message, conversationHistory).then(response => {
+        messages.value.push({ role: 'assistant', content: response.response, timestamp: new Date() });
+        isTyping.value = false;
+      }).catch(() => {
+        messages.value.push({ role: 'assistant', content: 'Sorry, I encountered an error. Please try again.', timestamp: new Date() });
+        isTyping.value = false;
+      });
     };
 
     const basicEscape = (s: string) =>
